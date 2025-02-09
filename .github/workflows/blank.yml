@@ -8,3 +8,15 @@ jobs:
         run: echo "Hello World"
       - name: Print Goodbye
         run: echo "Done - bye!"
+      - name: Send Confirmation Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Deployment Completed Successfully"
+          to: ${{ secrets.EMAIL_TO }}
+          from: "GitHub Actions <${{ secrets.SMTP_USERNAME }}>"
+          body: "The latest deployment to production has been completed successfully."
+          secure: true
